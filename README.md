@@ -1,5 +1,5 @@
 # dental-schedule-app
-A dental scheduling app that will let you access any hygienists and their office schedule. 
+A dental scheduling app that will let you access any hygienists and their office schedule to set up an appointment with your favorite dental hygienists. 
 
 ## Built with
 Backend:
