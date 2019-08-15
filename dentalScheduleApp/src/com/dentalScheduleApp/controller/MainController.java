@@ -245,8 +245,9 @@ public class MainController {
 		System.out.println("getName: " + user.getName());
 		System.out.println("getPassword: " + user.getPassword());
 		System.out.println("getPhoneNumber: " + user.getPhoneNumber());
+		System.out.println("getFavHygienists: " + user.getFavHygienists());
 		boolean result = userServ.registerUser(user.getUsername(), user.getAddress(), user.getName(),
-				user.getPassword(), user.getPhoneNumber(), user.getPrimaryDentalOffice(), null);
+				user.getPassword(), user.getPhoneNumber(), user.getPrimaryDentalOffice(), user.getFavHygienists());
 		String message;
 
 		if (result) {

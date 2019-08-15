@@ -95,7 +95,7 @@ public class UserService implements UserDAOI {
 		return;
 	}
 	@Override
-	public boolean registerUser(String userName, String address, String firstName, String password, String phoneNumber, DentalOffice primaryDental, Hygienist hyg) {
+	public boolean registerUser(String userName, String address, String firstName, String password, String phoneNumber, DentalOffice primaryDental, List<Hygienist> hygienists) {
 		boolean result = true;
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dentalScheduleApp");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -116,6 +116,8 @@ public class UserService implements UserDAOI {
 				user.setPassword(password);
 				user.setPhoneNumber(phoneNumber);
 				user.setPrimaryDentalOffice(primaryDental);
+				user.setFavHygienists(hygienists);
+				
 //				user.getFavHygienists().add(hyg);
 //				user.setFavHygienists(hygList);
 //				user.setUserAppts(null);

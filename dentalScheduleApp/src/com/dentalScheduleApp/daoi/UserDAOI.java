@@ -26,7 +26,7 @@ public interface UserDAOI {
 	
 	boolean validateUser(String userName, String password);
 	boolean registerUser(String userName, String address, String firstName, String password, String phoneNumber,
-			DentalOffice primaryDental, Hygienist hyg);
+			DentalOffice primaryDental, List<Hygienist> hygienists);
 	boolean updateUserPrimaryDental(Long currentUserId, Long newDentalOfficeId);
 	boolean addToUsersFavHygList(Long currentUserId, Long newHygienistId);
 	boolean deleteHygFromListById(Long currentUserId, Long hygienistIdToDelete);
