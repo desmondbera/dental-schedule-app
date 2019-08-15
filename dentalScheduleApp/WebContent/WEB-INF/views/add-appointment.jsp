@@ -49,13 +49,5 @@
 	</c:forEach> --%>
 
 </body>
-<script
-	src="${pageContext.request.contextPath}/resources/assets/js/jquery-3.4.1.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/assets/js/bootstrap.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/assets/js/script.js"></script>
-
+<%@ include file="script-files.jsp"%>
 </html>

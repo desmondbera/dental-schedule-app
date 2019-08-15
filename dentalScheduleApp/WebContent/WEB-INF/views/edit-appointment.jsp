@@ -25,4 +25,5 @@
 	<%-- Appt Id: ${currentAppt.getDateOfApptFormattedForEdit()} --%>
 	<%-- Appt id: ${currentAppt.getId() } --%>
 </body>
+<%@ include file="script-files.jsp"%>
 </html>

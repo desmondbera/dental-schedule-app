@@ -145,10 +145,5 @@
 		<a href=""><button type="submit" class="btn btn-danger">Delete Profile</button></a>
 	</div> -->
 </body>
-<script src="${pageContext.request.contextPath}/resources/assets/js/jquery-3.4.1.min.js"></script>
-	<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-	crossorigin="anonymous"></script>
-	<script src="${pageContext.request.contextPath}/resources/assets/js/bootstrap.min.js"></script>
+<%@ include file="script-files.jsp"%>
 </html>
