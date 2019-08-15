@@ -9,6 +9,7 @@ Backend:
   - MariaDB
   - Apache TomCat
   - EclipseLink 2.5
+  
 Frontend:
   - HTML5
   - Vanilla JS
