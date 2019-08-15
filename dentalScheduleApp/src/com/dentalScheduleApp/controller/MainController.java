@@ -80,7 +80,6 @@ public class MainController {
 //		System.out.println("our lsitOfUserApts:" + listOfUserAppts);
 
 		ModelAndView mav = new ModelAndView("loginForm");
-//		mav.addObject("apptList", listOfUserAppts);
 		mav.addObject("userId", userId);
 		mav.addObject("apptList", apptServ.getListOfApptsByUsername(userName));
 		session.setAttribute("userApptCount", listOfApptIds.size());
