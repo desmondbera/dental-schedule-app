@@ -20,7 +20,6 @@
 		  	
 		    <label for="username">Username</label>
 		    <form:input type="text" class="form-control" path="username" value="${user.username}"/>
-		    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
 		  </div>
 		  
 		 <div class="form-group">
@@ -115,8 +114,16 @@
 			</c:forEach>
 		
 			<!-- <input type="submit" value="Update"/> -->
-			<button type="submit" class="btn btn-primary" >Add Hygienist(s)</button>
+			<button type="submit" class="btn btn-primary">Add Hygienist(s)</button>
 		</form>
+		<br>
+		<hr>
+		
+		<p style="color: red;">Delete Your Account Permanently</p>
+		<p style="font-style: italic;">Delete all your appointments, favorite hygienist list, and data.</p>
+		<div>
+			<a href="${pageContext.request.contextPath}/edit-profile/user/delete-profile/${userId}"><button type="submit" class="btn btn-danger">Delete Profile</button></a>
+		</div> 
 	</div>
 	<%-- <select class="form-control" name="dentalOfficeId">
 		<option value="0" label="Select primary dental office" />
@@ -140,10 +147,7 @@
 	<br>
 	<%-- <p>username: ${username}</p>
 	<p>userid: ${userId}</p> --%>
-	
-	<!-- <div class="container col-md-12 mx-auto">
-		<a href=""><button type="submit" class="btn btn-danger">Delete Profile</button></a>
-	</div> -->
+
 </body>
 <%@ include file="script-files.jsp"%>
 </html>

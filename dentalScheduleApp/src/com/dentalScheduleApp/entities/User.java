@@ -65,7 +65,7 @@ public class User {
 	private String phoneNumber;
 	
 	@NotNull
-	@OneToOne(cascade=CascadeType.REMOVE)
+	@OneToOne
 	private DentalOffice primaryDentalOffice;
 
 //	@NotNull

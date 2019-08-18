@@ -364,7 +364,7 @@ public class MainController {
 	@RequestMapping(value="/edit-profile/user/{userId}", method=RequestMethod.GET)
 	public ModelAndView getEditProfile(@PathVariable String userId) {
 		System.out.println("--Inside of getEditProfile/user/userid--");
-		
+		System.out.println();
 		Long userIdLong = Long.parseLong(userId);
 		
 		UserService uServ = new UserService();
@@ -612,4 +612,24 @@ public class MainController {
 		return mav;
 	}
 
+	@RequestMapping(value="/edit-profile/user/delete-profile/{userId}", method=RequestMethod.GET)
+	public ModelAndView getDeleteUserAccount(@PathVariable String userId, HttpServletRequest request) {
+		System.out.println("---Inside of getDeleteUserAccount!---");
+		
+		//1. Delete user with id
+		UserService uServ = new UserService();
+		boolean result = uServ.deleteUserAcctById(Long.parseLong(userId));
+		
+		if(!result) {
+			System.out.println("Result is false. We have not deleted user!");
+		} else {
+			System.out.println("Result is true. We have successfully deleted user!");
+		}
+		
+		//2. We may have missed user appointments, user fav hygienist list - CHECK DATABASE
+		
+		ModelAndView mav = new ModelAndView("redirect:/register");
+		return mav;
+	}
+	
 }
