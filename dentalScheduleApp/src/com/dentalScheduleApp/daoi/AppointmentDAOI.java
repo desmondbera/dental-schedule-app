@@ -19,5 +19,6 @@ public interface AppointmentDAOI {
 	boolean updateAppointmentDateById(Long apptId, Date updatedDateObj);
 	
 	Appointment getAppointmentById(Long apptId);
+	boolean deleteAllUserAppointments(List<Long> listOfAllApptIds);
 	
 }

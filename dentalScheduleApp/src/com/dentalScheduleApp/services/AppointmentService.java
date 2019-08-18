@@ -193,5 +193,31 @@ public class AppointmentService implements AppointmentDAOI {
 		return found;
 
 	}
+	
+	@Override
+	public boolean deleteAllUserAppointments(List<Long> listOfAllApptIds) {
+		boolean result = true;
+		
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dentalScheduleApp");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+		try {
+			entityManager.getTransaction().begin();
+			for(int x = 0; x < listOfAllApptIds.size(); x++) {
+				Appointment appt = entityManager.find(Appointment.class, listOfAllApptIds.get(x));
+				entityManager.remove(appt);
+			}
+				
+			entityManager.getTransaction().commit();
+		} catch (PersistenceException e) {
+			result = false;
+			e.printStackTrace();
+		} finally {
+			entityManager.close();
+			entityManagerFactory.close();
+		}
+		
+		return result;
+	}
 
 }

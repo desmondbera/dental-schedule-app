@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -43,7 +44,7 @@ public class MainController {
 
 	@RequestMapping("/")
 	public ModelAndView welcome() {
-
+		System.out.println("--- Inside of get / - aka our index! ---- ");
 		ModelAndView mav = new ModelAndView("index");
 		return mav;
 	}
@@ -61,6 +62,7 @@ public class MainController {
 		HttpSession session = request.getSession(false);
 		String userName = (String) session.getAttribute("username");
 		String passWord = (String) session.getAttribute("password");
+		
 		
 		System.out.println("our usernaem in getHomePage method is: " + userName);
 		System.out.println("our password in getHomePage method is: " + passWord);
@@ -613,22 +615,51 @@ public class MainController {
 	}
 
 	@RequestMapping(value="/edit-profile/user/delete-profile/{userId}", method=RequestMethod.GET)
-	public ModelAndView getDeleteUserAccount(@PathVariable String userId, HttpServletRequest request) {
+	public ModelAndView getDeleteUserAccount(@PathVariable String userId, HttpServletRequest request, SessionStatus status) {
 		System.out.println("---Inside of getDeleteUserAccount!---");
 		
-		//1. Delete user with id
+		//1. Get username with id
 		UserService uServ = new UserService();
-		boolean result = uServ.deleteUserAcctById(Long.parseLong(userId));
+		User currentUser = uServ.getUserById(Long.parseLong(userId));
 		
-		if(!result) {
+		//2. Get all ids for user's appointments using username
+		AppointmentService apptServ = new AppointmentService();
+		List<Long> apptIdList = apptServ.getListOfAppointmentIdsWithUsername(currentUser.getUsername());
+		
+		//3. Delete all of user's appointments using appt id list
+		boolean resultAppts = apptServ.deleteAllUserAppointments(apptIdList);
+		
+		if(!resultAppts) {
+			System.out.println("Result is false. We have not deleted appointments!");
+		} else {
+			System.out.println("Result is true. We have successfully deleted all appointments!");
+		}
+		
+		//3. Delete user with id
+		boolean resultUser = uServ.deleteUserAcctById(Long.parseLong(userId));
+		
+		if(!resultUser) {
 			System.out.println("Result is false. We have not deleted user!");
 		} else {
 			System.out.println("Result is true. We have successfully deleted user!");
 		}
 		
-		//2. We may have missed user appointments, user fav hygienist list - CHECK DATABASE
+		//4. Next we need to set the correct 
+		//register redirect / forward / or new jsp page with no session / request attributes
 		
-		ModelAndView mav = new ModelAndView("redirect:/register");
+		ModelAndView mav = new ModelAndView("redirect:/");
+		status.setComplete();
+		HttpSession session = request.getSession(false);
+		
+		session.setAttribute("username", null);
+		session.setAttribute("password", null);
+		
+		
+		System.out.println("our usernaem in getHomePage method is: " + session.getAttribute("username"));
+		System.out.println("our password in getHomePage method is: " + session.getAttribute("password"));
+		
+		
+		
 		return mav;
 	}
 	
