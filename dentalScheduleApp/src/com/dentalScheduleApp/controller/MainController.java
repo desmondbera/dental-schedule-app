@@ -307,9 +307,10 @@ public class MainController {
 			BindingResult errors, HttpServletRequest request) {
 		System.out.println("--Inside of postScheduleAppointment--");
 		HttpSession session = request.getSession();
-		System.out.println("Appointment on session: " + session.getAttribute("datePicker"));
-		System.out.println("Appointment date: " + appt.getDateOfAppt());
+		
+		//1. Make sure we are getting data from date + time picker
 		System.out.println("**Request get param of date picker: " + request.getParameter("datePicker"));
+		System.out.println("**Request get param of time picker: " + request.getParameter("timePicker"));
 
 		// To put into db we need this format: YYYY-MM-DD
 		AppointmentService apptServ = new AppointmentService();
@@ -333,10 +334,11 @@ public class MainController {
 		} 
 		
 		//3. Converting time (currently as a string) to a Date object to pass to AppointmentService
-		String dateTimeString = "06:30:00";
+//		String dateTimeString = "06:30:00";
+		String dateTimeString = request.getParameter("timePicker");
 		Date dateTimeObj = null;
 		try {
-			dateTimeObj = new SimpleDateFormat("hh:mm:ss").parse(dateTimeString);
+			dateTimeObj = new SimpleDateFormat("hh:mm a").parse(dateTimeString);
 			System.out.println("Our dateTimeObj is: " + dateTimeObj);
 		} catch(ParseException e) {
 			System.out.println("Inside catch block when we try to format DATETIME!");

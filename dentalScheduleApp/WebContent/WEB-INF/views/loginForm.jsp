@@ -62,7 +62,7 @@
 						<div class="cell" data-title="#">${appt.getId()}</div>
 						<div class="cell" data-title="Hygienist Name">${appt.getHygienistName()}</div>
 						<div class="cell" data-title="Date Of Appointment">						
-						 	${appt.getDateOfApptFormatted()} - ${appt.getTimeOfApptFormatted() } 
+						 	${appt.getDateOfApptFormatted()} - ${appt.getTimeOfApptFormatted()} 
 						</div>
 						<div class="cell" data-title="">
 							<a href="update-appt/${appt.getId()}">Update</a> |

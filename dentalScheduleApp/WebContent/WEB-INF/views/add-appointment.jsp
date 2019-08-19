@@ -6,16 +6,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/assets/styles/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/styles/bootstrap.min.css">
 <!-- <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css"> -->
 	
-	<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
-	
-<!-- <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" /> -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+ 
 
 <title>Insert title here</title>
 </head>
@@ -30,6 +27,14 @@
 			<label>Pick a date:</label>
 			<!-- <input type="text" name="datePicker" class="datePicker"
 				path="dateOfAppt" placeholder="YYYY.MM.DD" /> -->
+				
+			 <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+	             <input type="text" class="form-control datetimepicker-input" name="datePicker" path="dateOfAppt"/>
+	             <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+	                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+	             </div>
+             </div> 
+				
 			<br>
 			<br>
 			<label>Pick a time:</label>
@@ -37,14 +42,40 @@
 				path="timeOfAppt" placeholder="YYYY.MM.DD" />
 			<br> -->
 			
-			<div class="input-group date" data-target-input="nearest">
-	            <input type="text" id="datetimepicker3"/>
+			 <div class="input-group date" data-target-input="nearest" id="datetimepicker3" >
+	            <input type="text" class="form-control datetimepicker-input" name="timePicker" path="timeOfAppt"/>
 	            <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
 	                <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
 	            </div>
-             </div>
+             </div> 
+             
+          
+              
+             <br>
 			<button type="submit" value="submit" class="btn btn-success">Submit</button>
 		</form:form>
+
+		<!-- <div class="container">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group">
+						<div class="input-group date" id="datetimepicker3"
+							data-target-input="nearest">
+							<input type="text" class="form-control datetimepicker-input"
+								data-target="#datetimepicker3" />
+							<div class="input-group-append" data-target="#datetimepicker3"
+								data-toggle="datetimepicker">
+								<div class="input-group-text">
+									<i class="fa fa-clock-o"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div> -->
+
 	</div>
 
 

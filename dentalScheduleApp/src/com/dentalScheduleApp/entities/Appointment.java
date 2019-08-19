@@ -134,6 +134,7 @@ public class Appointment {
 	//Formats time of appointment in a user friendly way.
 	public String getTimeOfApptFormatted() {
 		SimpleDateFormat df = new SimpleDateFormat("hh:mm a");
+//		System.out.println("Our df is GetTimeOfApptFormatted is: " + df);
 		return df.format(timeOfAppt);
 	}
 	
