@@ -1,6 +1,12 @@
-$(function() {
-$('.datePicker').datepicker('getDate',{'format': 'yyyy.mm.dd', inline: true,
-    sideBySide: true});
-});
+//$(function() {
+//$('.datePicker').datepicker('getDate',{'format': 'yyyy.mm.dd', inline: true,
+//    sideBySide: true});
+//});
 
-//window.alert("**** WARNING **** PAGE UNDER CONSTRUCTION ****");
+
+
+$(function() {
+	$('#datetimepicker3').datetimepicker({
+		format : 'HH:mm'
+	});
+});

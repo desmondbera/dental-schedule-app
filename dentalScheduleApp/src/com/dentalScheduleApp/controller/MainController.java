@@ -658,8 +658,6 @@ public class MainController {
 		System.out.println("our usernaem in getHomePage method is: " + session.getAttribute("username"));
 		System.out.println("our password in getHomePage method is: " + session.getAttribute("password"));
 		
-		
-		
 		return mav;
 	}
 	
