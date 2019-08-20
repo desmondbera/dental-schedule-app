@@ -389,7 +389,7 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/edit-profile/user/{username}/{userId}", method=RequestMethod.POST)
-	public ModelAndView postEditProfile(@PathVariable String userId, @PathVariable String username, @ModelAttribute User user) {
+	public ModelAndView postEditProfile(@PathVariable String userId, @PathVariable String username, @ModelAttribute User user, HttpServletRequest request) {
 		System.out.println("--Inside of postEditProfile/user/userid--");
 
 		System.out.println("Username from path variable: " + username);
@@ -416,6 +416,14 @@ public class MainController {
 			for(int x = 0; x < currUserApptIds.size(); x++) {
 				apptServ.updateApptUsernameById(currUserApptIds.get(x), foundUser.getUsername());
 			}
+			HttpSession session = request.getSession(false);
+			String usernameInSession = (String)session.getAttribute("username");
+			System.out.println("username in session is currently: " + usernameInSession);
+			
+//			System.out.println("foundUser.getUserName is: " + foundUser.getUsername());
+			session.setAttribute("username", foundUser.getUsername());
+			String usernameInSessionUpdated = (String)session.getAttribute("username");
+			System.out.println("username in session updated is currently: " + usernameInSessionUpdated);
 		}
 		
 		
@@ -439,7 +447,8 @@ public class MainController {
 		mav.addObject("currentListOfHygienists", listOfHygienistsForCurrentUser);
 		mav.addObject("allHygienists", hygList);
 //		mav.setViewName("redirect:/loginForm");
-		mav.setViewName("redirect:/edit-profile/user/{username}/{userId}");
+//		mav.setViewName("redirect:/edit-profile/user/{username}/{userId}");
+		mav.setViewName("redirect:/loginForm");
 		return mav;
 	}
 	
