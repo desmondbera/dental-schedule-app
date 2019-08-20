@@ -219,5 +219,31 @@ public class AppointmentService implements AppointmentDAOI {
 		
 		return result;
 	}
+	
+	@Override 
+	public boolean updateApptUsernameById(Long apptId, String updatedUsername) {
+		boolean result = true;
+		
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dentalScheduleApp");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		
+		try {
+			System.out.println("====Inside try of UPDATEAPPTUSERNAMEBYID===");
+			entityManager.getTransaction().begin();
+			Appointment appt = entityManager.find(Appointment.class, apptId);
+			System.out.println("Apt.getPatientName() before is: " + appt.getPatientname());
+			appt.setPatientName(updatedUsername);
+			System.out.println("Apt.getPatientName() after is: " + appt.getPatientname());
+			entityManager.getTransaction().commit();
+		} catch (PersistenceException e) {
+			result = false;
+			e.printStackTrace();
+		} finally {
+			entityManager.close();
+			entityManagerFactory.close();
+		}
+		System.out.println("Our result inside updateApptUsernameByid....: " + result);
+		return result;
+	}
 
 }

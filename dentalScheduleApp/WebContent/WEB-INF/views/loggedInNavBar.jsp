@@ -31,7 +31,7 @@
 				<li class="active"><a href="${pageContext.request.contextPath}/loginForm">Home</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="${pageContext.request.contextPath}/edit-profile/user/${userId}"><span class=""></span>Edit Profile</a></li>
+				<li><a href="${pageContext.request.contextPath}/edit-profile/user/${username}/${userId}"><span class=""></span>Edit Profile</a></li>
 				<li><a href="${pageContext.request.contextPath}/logout"><span class=""></span>Log out</a></li>
 				<!-- <li><a href="login"><span class="glyphicon glyphicon-log-in"></span>
 						Login</a></li> -->	

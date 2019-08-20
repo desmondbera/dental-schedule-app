@@ -14,7 +14,7 @@
 	<hr>
 	${messageResult}
 	<div class="container col-md-6">
-		<form:form action="${pageContext.request.contextPath}/edit-profile/user/${userId}" method="POST" modelAttribute="user" >
+		<form:form action="${pageContext.request.contextPath}/edit-profile/user/${username}/${userId}" method="POST" modelAttribute="user" >
 		  <div class="form-group">
 		  	<form:input type="hidden" class="form-control" path="id" value="${user.id }" readonly="readonly"/>
 		  	

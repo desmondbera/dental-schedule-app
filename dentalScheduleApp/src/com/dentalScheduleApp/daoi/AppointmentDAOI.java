@@ -20,5 +20,6 @@ public interface AppointmentDAOI {
 	
 	Appointment getAppointmentById(Long apptId);
 	boolean deleteAllUserAppointments(List<Long> listOfAllApptIds);
+	boolean updateApptUsernameById(Long apptId, String updatedUsername);
 	
 }

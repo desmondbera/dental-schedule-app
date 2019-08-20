@@ -73,14 +73,6 @@ public class MainController {
 		AppointmentService apptServ = new AppointmentService();
 		List<Long> listOfApptIds = apptServ.getListOfAppointmentIdsWithUsername(userName);
 
-		
-//		List<Long> listOfApptIds = apptServ.getListOfAppointmentIdsWithUsername(userName);
-//		System.out.println("Our listOfApptIds is: " + listOfApptIds);
-		//------------------------------------------------------
-//		listOfUserAppts = userServ.getUserAppointments(userName);
-//		System.out.println("size of our listOfUserApts: " + listOfUserAppts.size());
-//		System.out.println("our lsitOfUserApts:" + listOfUserAppts);
-
 		ModelAndView mav = new ModelAndView("loginForm");
 		mav.addObject("userId", userId);
 		mav.addObject("apptList", apptServ.getListOfApptsByUsername(userName));
@@ -365,10 +357,10 @@ public class MainController {
 		return new ModelAndView("add-appointment");
 	}
 	
-	@RequestMapping(value="/edit-profile/user/{userId}", method=RequestMethod.GET)
-	public ModelAndView getEditProfile(@PathVariable String userId) {
+	@RequestMapping(value="/edit-profile/user/{username}/{userId}", method=RequestMethod.GET)
+	public ModelAndView getEditProfile(@PathVariable String userId, @PathVariable String username) {
 		System.out.println("--Inside of getEditProfile/user/userid--");
-		System.out.println();
+		
 		Long userIdLong = Long.parseLong(userId);
 		
 		UserService uServ = new UserService();
@@ -396,10 +388,11 @@ public class MainController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/edit-profile/user/{userId}", method=RequestMethod.POST)
-	public ModelAndView postEditProfile(@PathVariable String userId, @ModelAttribute User user) {
+	@RequestMapping(value="/edit-profile/user/{username}/{userId}", method=RequestMethod.POST)
+	public ModelAndView postEditProfile(@PathVariable String userId, @PathVariable String username, @ModelAttribute User user) {
 		System.out.println("--Inside of postEditProfile/user/userid--");
-		
+
+		System.out.println("Username from path variable: " + username);
 		boolean result = true;
 		Long userIdLong = Long.parseLong(userId);
 		
@@ -409,9 +402,23 @@ public class MainController {
 			result = uServ.updateUser(user);
 		}
 		
+		
 		String message = result ? "User Updated: " + user.getId() : "User not updated.";
+		System.out.println("Message is: " + message);
 		
 		User foundUser = uServ.getUserById(userIdLong);	
+		
+		if(result) {
+			System.out.println("--- RESULT IS TRUE ----");
+			AppointmentService apptServ = new AppointmentService();
+			List<Long> currUserApptIds = apptServ.getListOfAppointmentIdsWithUsername(username);
+			System.out.println("Our currUserApptIds is: " + currUserApptIds);
+			for(int x = 0; x < currUserApptIds.size(); x++) {
+				apptServ.updateApptUsernameById(currUserApptIds.get(x), foundUser.getUsername());
+			}
+		}
+		
+		
 		
 		DentalOffice currentDentalOffice = uServ.getUserPrimOfficeById(userIdLong);
 		Long currentDentalOfficeId = currentDentalOffice.getId();
@@ -425,13 +432,14 @@ public class MainController {
 		HygienistService hygServ = new HygienistService();
 		List<Hygienist> hygList = hygServ.getAllHygienists();
 		
-		ModelAndView mav = new ModelAndView("edit-profile");
+		ModelAndView mav = new ModelAndView();
 //		mav.addObject("messageResult", message);
 		mav.addObject("dentalOffices", allDentalOffices);
 		mav.addObject("currentDentalOffice", currentDentalOffice2);
 		mav.addObject("currentListOfHygienists", listOfHygienistsForCurrentUser);
 		mav.addObject("allHygienists", hygList);
 //		mav.setViewName("redirect:/loginForm");
+		mav.setViewName("redirect:/edit-profile/user/{username}/{userId}");
 		return mav;
 	}
 	

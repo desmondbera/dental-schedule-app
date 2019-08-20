@@ -68,13 +68,6 @@ public class User {
 	@OneToOne
 	private DentalOffice primaryDentalOffice;
 
-//	@NotNull
-//	@OneToMany(cascade = CascadeType.ALL, mappedBy="userFavHygienist", orphanRemoval= true)
-//	private List<Hygienist> favHygienists;
-
-	//This one works but we are experimenting with the one above..
-	
-//	@ManyToMany(targetEntity = Hygienist.class, fetch=FetchType.EAGER)
 	@NotNull
 	@ManyToMany
 	@JoinTable(name = "user_hygienists", 
@@ -85,10 +78,6 @@ public class User {
 	//TODO: Above is good to go. Need to update everything below...
 	@OneToMany(mappedBy="userAppt")
 	private List<Appointment> userAppts;
-	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	private DentalOffice dentalOfficeUsers;
-	
 	
 	//Constructors
 	public User() {
@@ -190,14 +179,6 @@ public class User {
 	public void setPrimaryDentalOffice(DentalOffice primaryDentalOffice) {
 		this.primaryDentalOffice = primaryDentalOffice;
 	}
-
-//	public DentalOffice getDentalOfficeUsers() {
-//		return dentalOfficeUsers;
-//	}
-//
-//	public void setDentalOfficeUsers(DentalOffice dentalOfficeUsers) {
-//		this.dentalOfficeUsers = dentalOfficeUsers;
-//	}
 
 	// This will add it on both sides; to User entity AND hygienist side.
 	public void addHygienist(Hygienist hygienist) {
