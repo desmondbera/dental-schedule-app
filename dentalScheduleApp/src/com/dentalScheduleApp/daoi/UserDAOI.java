@@ -9,18 +9,13 @@ import com.dentalScheduleApp.entities.User;
 
 public interface UserDAOI {
 
-	void scheduleUserAppointment(String userName, String hygienistId);
-	void registerUserToHygienist(String userName, String userPassword);
-	
 	List<Appointment> getUserAppointments(String userName);
-	List<Hygienist> getUserFavHygienists(String userName);
 	List<Hygienist> getListOfFavoriteHygienistById(Long currentUserId);
 	List<User> getAllUsers();
 
 	User getUserByUsername(String userName);
 	User getUserById(Long userId);
-	
-	int getLastItemId();
+
 	DentalOffice getUserPrimOfficeById(Long userId);
 	Long getUserIdWithUserNameAndPwd(String username, String password);
 	

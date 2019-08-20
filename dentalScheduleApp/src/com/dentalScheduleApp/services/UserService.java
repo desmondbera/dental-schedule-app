@@ -80,20 +80,7 @@ public class UserService implements UserDAOI {
 		return query.getResultList();
 		
 	}
-	@Override
-	public List<Hygienist> getUserFavHygienists(String userName) {
-		return null;
-	}
-	
-	@Override
-	public void scheduleUserAppointment(String userName, String hygienistId) {
-		return;
-	}
-	
-	@Override
-	public void registerUserToHygienist(String userName, String userPassword) {
-		return;
-	}
+
 	@Override
 	public boolean registerUser(String userName, String address, String firstName, String password, String phoneNumber, DentalOffice primaryDental, List<Hygienist> hygienists) {
 		boolean result = true;
@@ -157,12 +144,6 @@ public class UserService implements UserDAOI {
 		return foundUser;
 	}
 	
-	@Override
-	public int getLastItemId() {
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("dentalScheduleApp");
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		return 0;
-	}
 	
 	@Override
 	public DentalOffice getUserPrimOfficeById(Long userId) {

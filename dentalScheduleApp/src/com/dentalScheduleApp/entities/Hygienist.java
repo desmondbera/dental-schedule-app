@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -19,7 +20,7 @@ import javax.persistence.Table;
 public class Hygienist {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	
 	@Column(name="hygienist_name")
@@ -50,8 +51,9 @@ public class Hygienist {
 		super();
 	}
 	
-	public Hygienist(String name, DentalOffice dentalOfficeHygienists) {
+	public Hygienist(Long id, String name, DentalOffice dentalOfficeHygienists) {
 		super();
+		this.id = id;
 		this.name = name;
 //		this.userHygienist = userHygienist;
 		this.dentalOfficeHygienists = dentalOfficeHygienists;
