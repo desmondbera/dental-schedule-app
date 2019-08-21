@@ -34,14 +34,9 @@ import com.dentalScheduleApp.services.HygienistService;
 import com.dentalScheduleApp.services.UserService;
 
 @Controller
-//@SessionAttributes("user")
 public class MainController {
 
-//	@ModelAttribute("user")
-//	public User setUpUser() {
-//		return new User();
-//	}
-
+	//Handles request for our INDEX jsp page (index)
 	@RequestMapping("/")
 	public ModelAndView welcome() {
 		System.out.println("--- Inside of get / - aka our index! ---- ");
@@ -49,6 +44,7 @@ public class MainController {
 		return mav;
 	}
 
+	//Handles request for LOGIN jsp page
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(@Valid @ModelAttribute("loginUser") User user, BindingResult result) {
 		System.out.println("Inside of login - GET version");
@@ -56,6 +52,8 @@ public class MainController {
 		return mav;
 	}
 
+	// Handles request for LOGINFORM jsp page
+	// this is our User Home Page once successfully logged in.
 	@RequestMapping(value = "/loginForm", method = RequestMethod.GET)
 	public ModelAndView getHomePage(HttpServletResponse response, HttpServletRequest request) {
 		System.out.println("inside getHomePage method!");
@@ -80,6 +78,8 @@ public class MainController {
 		return mav;
 	}
 
+	// Handles POST request for LOGINFORM jsp page
+	// This is triggered by user input / data is handled here when user fills out the LOG IN form in LoginForm
 	@RequestMapping(value = "/loginForm", method = RequestMethod.POST)
 	public ModelAndView loginForm(@Valid @ModelAttribute("loginUser") User user, BindingResult result,
 			@RequestParam(value = "username") String username, @RequestParam(value = "password") String password,
@@ -143,6 +143,7 @@ public class MainController {
 		return mav;
 	}
 
+	// Handles GET request for REGISTER jsp page
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public ModelAndView getRegistrationForm() {
 		System.out.println("inside of getRegistrationForm");
@@ -159,6 +160,8 @@ public class MainController {
 		return mav;
 	}
 
+	// Handles POST request for REGISTER jsp page
+	// This is triggered by user input / data when user fills out the REGISTER form in the REGISTER jsp page
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ModelAndView doSubmitRegistrationForm(@Valid @ModelAttribute("registerUser") User user, BindingResult errors,
 			HttpServletRequest request, RedirectAttributes attributes) {
@@ -260,6 +263,7 @@ public class MainController {
 		return mav;
 	}
 
+	// Handles the GET request when user clicks LOG OUT and is redirected to INDEX 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public ModelAndView logoutUser(HttpServletResponse response, HttpServletRequest request) {
 		System.out.println("Inside logoutUser");
@@ -294,6 +298,7 @@ public class MainController {
 		return new ModelAndView("redirect:/");
 	}
 
+	// Handles POST request for scheduling an appointment with current logged in User using userId
 	@RequestMapping(value = "/schedule-appointment/user/{userId}", method = RequestMethod.POST)
 	public ModelAndView postScheduleAppointment(@Valid @ModelAttribute("appointmentForm") Appointment appt,
 			BindingResult errors, HttpServletRequest request) {
@@ -309,7 +314,7 @@ public class MainController {
 		List<Long> testList = apptServ.getListOfAppointmentIdsWithUsername((String) session.getAttribute("username"));
 		System.out.println("Our list of appointments the user has: " + testList);
 
-		//1. we need to have username to insert appt to APPOINTMENT table
+		//1.1. we need to have username to insert appt to APPOINTMENT table
 		System.out.println("session get attribute of username: " + session.getAttribute("username"));
 		
 		//2. we need to convert date (currently a string) to a DATE object to pass to AppointmentService
@@ -350,6 +355,7 @@ public class MainController {
 		return mav;
 	}
 
+	// Handles GET request for scheduling an appointment. Will only return the ADD-APPOINTMENT jsp page.
 	@RequestMapping(value="/schedule-appointment/user/{userId}",method=RequestMethod.GET)
 	public ModelAndView getScheduleAppointment(@Valid @ModelAttribute("appointmentForm") Appointment appt,
 			BindingResult errors, @PathVariable String userId) {
@@ -357,6 +363,8 @@ public class MainController {
 		return new ModelAndView("add-appointment");
 	}
 	
+	// Handles GET request for editing user profile. Will population ModelAndView object with data from DB (Hygienists Available / Dental offices available, etc)
+	// Will also return EDIT-PROFILE jsp page.
 	@RequestMapping(value="/edit-profile/user/{username}/{userId}", method=RequestMethod.GET)
 	public ModelAndView getEditProfile(@PathVariable String userId, @PathVariable String username) {
 		System.out.println("--Inside of getEditProfile/user/userid--");
@@ -388,6 +396,8 @@ public class MainController {
 		return mav;
 	}
 	
+	//Handles POST request for EDIT-PROFILE when USER updates personal info - NOT preferences like hygienist list or primary dental office.
+	// Will return REDIRECT to USER HOME PAGE (read: LoginForm)
 	@RequestMapping(value="/edit-profile/user/{username}/{userId}", method=RequestMethod.POST)
 	public ModelAndView postEditProfile(@PathVariable String userId, @PathVariable String username, @ModelAttribute User user, HttpServletRequest request) {
 		System.out.println("--Inside of postEditProfile/user/userid--");
@@ -453,6 +463,8 @@ public class MainController {
 	}
 	
 
+	// Handles GET request for canceling appointment
+	// Will redirect back to the USER HOME PAGE (LoginForm)
 	@RequestMapping(value="/cancel-appt/{apptId}", method=RequestMethod.GET)
 	public ModelAndView cancelUserAppt(@PathVariable String apptId) {
 		System.out.println("Canceling user's appt...");
@@ -478,6 +490,8 @@ public class MainController {
 		return mav;
 	}
 	
+	// Handles GET request for USER clicks on UPDATE appt on USER HOME PAGE (LoginForm)
+	// Will return EDIT-APPOINTMENT jsp page
 	@RequestMapping(value="/update-appt/{apptId}", method=RequestMethod.GET)
 	public ModelAndView updateUserAppt(@PathVariable String apptId) {
 		System.out.println("Inside of updateUserAppt");
@@ -495,6 +509,8 @@ public class MainController {
 		return mav;
 	}
 	
+	// Handles POST request when USER submits updates to their appointment
+	// Will return USER back to USER HOME PAGE (LoginForm)
 	@RequestMapping(value="/update-appt/{apptId}", method=RequestMethod.POST)
 	public ModelAndView postUpdateUserAppt(@PathVariable String apptId, HttpServletRequest request) {
 		System.out.println("Inside of postUpdateUserAppt");
@@ -532,6 +548,7 @@ public class MainController {
 		return mav;
 	}
 	
+	// Handles GET request for EDIT-PROFILE - specificaly the PRIMARY DENTAL OFFICE section in EDIT-PROFILE jsp page
 	@RequestMapping(value="/edit-profile/user/primary-dental-office/{userId}", method=RequestMethod.GET)
 	public ModelAndView getEditProfilePrimaryDentalOffice(@PathVariable String userId) {
 		System.out.println("--Inside of getEditProfilePrimaryDentalOffice--");
@@ -557,7 +574,7 @@ public class MainController {
 		return mav;
 	}
 	
-	
+	// Handles POST request when user SUBMITS changes to PRIMARY DENTAL OFFICE section in EDIT-PROFILE jsp page
 	@RequestMapping(value="/edit-profile/user/primary-dental-office/{userId}", method=RequestMethod.POST)
 	public ModelAndView postEditProfilePrimaryDentalOffice(@PathVariable String userId, HttpServletRequest request) {
 		System.out.println("--Inside of postEditProfile/user/primary-dental-office/userid--");
@@ -580,7 +597,7 @@ public class MainController {
 //		mav.setViewName("edit-profile");
 		return mav;
 	}
-	
+	// Handles POST request when user SUBMITS changes to FAVORITE HYGIENIST section in EDIT-PROFILE jsp page
 	@RequestMapping(value="/edit-profile/user/favorite-hygienist/{userId}", method=RequestMethod.POST)
 	public ModelAndView postEditProfileFavHygienist(@PathVariable String userId, HttpServletRequest request) {
 		System.out.println("--Inside of postEditProfileFavHygienist--");
@@ -613,6 +630,7 @@ public class MainController {
 		return mav;
 	}
 	
+	// Handles POST request when user REMOVES HYGIENIST in EDIT-PROFILE jsp page
 	@RequestMapping(value="/edit-profile/user/remove-hygienist/{userId}", method=RequestMethod.POST)
 	public ModelAndView postRemoveHygienist(@PathVariable String userId, HttpServletRequest request) {
 		System.out.println("--Inside of postRemoveHygienist--");
@@ -633,6 +651,8 @@ public class MainController {
 		return mav;
 	}
 
+	// Handles GET request for when user DELETES PROFILE
+	// Will redirect to LANDING PAGE ( INDEX )
 	@RequestMapping(value="/edit-profile/user/delete-profile/{userId}", method=RequestMethod.GET)
 	public ModelAndView getDeleteUserAccount(@PathVariable String userId, HttpServletRequest request, SessionStatus status) {
 		System.out.println("---Inside of getDeleteUserAccount!---");
