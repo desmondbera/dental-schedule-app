@@ -181,7 +181,6 @@ public class UserService implements UserDAOI {
 			System.out.println("Result in getUserIdWithUserNameAndPwd is: " + query.getResultList().get(0));
 			result = (Long) query.getResultList().get(0);
 			
-			
 		} catch(PersistenceException e) {
 			e.printStackTrace();
 		} finally {
@@ -314,6 +313,8 @@ public class UserService implements UserDAOI {
 		try {
 			entityManager.getTransaction().begin();
 			User user = entityManager.find(User.class, currentUserId);
+			System.out.println("user inside SERVICE is: " + user.getAddress());
+			System.out.println("newAddress passed in: " + newAddress);
 			user.setAddress(newAddress);		
 			entityManager.getTransaction().commit();
 		} catch(PersistenceException e) {
